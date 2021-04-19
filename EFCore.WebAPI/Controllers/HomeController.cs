@@ -1,6 +1,7 @@
 ﻿using EFCore.Domain;
 using EFCore.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,12 @@ namespace EFCore.WebAPI
         {
             var listHeroi = _context.Herois
                              .Where(h => h.Nome.Contains(nome))
+                             .OrderByDescending(h => h.Id)
                              .ToList();
+
+            //var listHeroi = _context.Herois
+            //                 .Where(h => EF.Functions.Like(h.Nome, $"%{nome}%"))
+            //                 .ToList();
 
             //var listHeroi = (from heroi in _context.Herois
             //                 where heroi.Nome.Contains(nome)
